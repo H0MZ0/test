@@ -1,25 +1,36 @@
-#include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
+#include <iostream>
+#include "iter.hpp"
 
-int main() {
-    ClapTrap clap("CL4P-TP");
-    ScavTrap scav("SC4V-TP");
+template <typename T>
+void print(T const &x)
+{
+    std::cout << x << std::endl;
+}
 
-    std::cout << std::endl;
+template <typename T>
+void increment(T &x)
+{
+    x++;
+}
 
-    clap.attack("target dummy");
-    scav.attack("enemy bot");
+int main()
+{
+    int arr[] = {1, 2, 3, 4, 5};
+    std::string str[] = {"hello", "world"};
+    const int constArr[] = {10, 20, 30};
 
-    std::cout << std::endl;
+    std::cout << "Print int array:" << std::endl;
+    iter(arr, 5, print<int>);
 
-    scav.takeDamage(30);
-    scav.beRepaired(20);
+    std::cout << "Increment int array:" << std::endl;
+    iter(arr, 5, increment<int>);
+    iter(arr, 5, print<int>);
 
-    std::cout << std::endl;
+    std::cout << "Print string array:" << std::endl;
+    iter(str, 2, print<std::string>);
 
-    scav.guardGate();
-
-    std::cout << std::endl;
+    std::cout << "Print const int array:" << std::endl;
+    iter(constArr, 3, print<int>);
 
     return 0;
 }

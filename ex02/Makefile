@@ -1,7 +1,9 @@
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = FragTrap
-SRC = ClapTrap.cpp main.cpp ScavTrap.cpp FragTrap.cpp
+
+NAME = array
+SRC = main.cpp
+HDR = Array.hpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -9,7 +11,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp $(HDR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
@@ -19,5 +21,3 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-.SECONDARY:

@@ -1,7 +1,8 @@
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = ScavTrap
-SRC = ClapTrap.cpp main.cpp ScavTrap.cpp
+NAME = iter
+SRC = main.cpp
+HAD = iter.hpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
@@ -9,7 +10,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp $(HAD)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
@@ -18,6 +19,4 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all
-
-.SECONDARY:
+re: fclean all 
