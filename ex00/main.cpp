@@ -1,22 +1,60 @@
-#include "whatever.hpp"
+#include "easyfind.hpp"
+#include <exception>
+#include <iostream>
+#include <list>
+#include <vector>
 
-int main( void ) {
+int main()
+{
+    // ===== VECTOR TEST =====
+    std::vector<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
 
-    int a = 2;
-    int b = 3;
+    try {
+        easyfind(v, 2); // found
+        std::cout << "Vector: value found" << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "Vector: value not found" << std::endl;
+    }
 
-    ::swap( a, b );
-    std::cout << "a = " << a << ", b = " << b << std::endl;
-    std::cout << "min( a, b ) = " << ::min( a, b ) << std::endl;
-    std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
+    try {
+        easyfind(v, 42); // not found
+        std::cout << "Vector: value found" << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "Vector: value not found" << std::endl;
+    }
 
-    std::string c = "chaine1";
-    std::string d = "chaine2";
+    // ===== LIST TEST =====
+    std::list<int> l;
+    l.push_back(10);
+    l.push_back(20);
+    l.push_back(30);
 
-    ::swap(c, d);
-    std::cout << "c = " << c << ", d = " << d << std::endl;
-    std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
-    std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
+    try {
+        easyfind(l, 20); // found
+        std::cout << "List: value found" << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "List: value not found" << std::endl;
+    }
+
+    try {
+        easyfind(l, -1); // not found
+        std::cout << "List: value found" << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "List: value not found" << std::endl;
+    }
+
+    // ===== CONST CONTAINER TEST =====
+    const std::vector<int> cv(v);
+
+    try {
+        easyfind(cv, 1); // found
+        std::cout << "Const vector: value found" << std::endl;
+    } catch (const std::exception& e) {
+        std::cout << "Const vector: value not found" << std::endl;
+    }
 
     return 0;
 }

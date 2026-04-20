@@ -1,52 +1,66 @@
+#include "MutantStack.hpp"
+#include <list>
 
-#include <iostream>
-#include <string>
-#include "Array.hpp"
+int main()
+{
+    std::cout << "MutantStack test:" << std::endl;
+    MutantStack<int> mstack;
+    mstack.push(5);
+    mstack.push(17);
+    std::cout << mstack.top() << std::endl;
+    mstack.pop();
+    std::cout << mstack.size() << std::endl;
+    mstack.push(3);
+    mstack.push(5);
+    mstack.push(737);
 
-int main() {
-    // Empty array
-    Array<int> a;
-    std::cout << "a.size() = " << a.size() << std::endl;
+    MutantStack<int> b(mstack);
+    MutantStack<int> c;
+    c = b;
 
-    // Array with size
-    Array<int> b(5);
-    std::cout << "b.size() = " << b.size() << std::endl;
+    mstack.push(0);
+    MutantStack<int>::iterator it = mstack.begin();
+    MutantStack<int>::iterator ite = mstack.end();
+    ++it;
+    --it;
 
-    for (unsigned int i = 0; i < b.size(); i++)
-        b[i] = i * 10;
-
-    for (unsigned int i = 0; i < b.size(); i++)
-        std::cout << "b[" << i << "] = " << b[i] << std::endl;
-
-    // Copy constructor
-    Array<int> c(b);
-    c[0] = 999;
-
-    std::cout << "After copy modification:" << std::endl;
-    std::cout << "b[0] = " << b[0] << std::endl;
-    std::cout << "c[0] = " << c[0] << std::endl;
-
-    // Assignment operator
-    Array<int> d;
-    d = b;
-    d[1] = 777;
-
-    std::cout << "After assignment modification:" << std::endl;
-    std::cout << "b[1] = " << b[1] << std::endl;
-    std::cout << "d[1] = " << d[1] << std::endl;
-
-    // Different type
-    Array<std::string> s(2);
-    s[0] = "hello";
-    s[1] = "world";
-    std::cout << s[0] << " " << s[1] << std::endl;
-
-    // Out of bounds test
-    try {
-        std::cout << b[100] << std::endl;
-    } catch (const std::exception &e) {
-        std::cout << "Exception caught" << std::endl;
+    while (it != ite)
+    {
+        std::cout << *it << std::endl;
+        ++it;
     }
 
+    std::cout << "Const iterator test:" << std::endl;
+    const MutantStack<int> constStack(mstack);
+    MutantStack<int>::const_iterator cit = constStack.begin();
+    MutantStack<int>::const_iterator cite = constStack.end();
+    while (cit != cite)
+    {
+        std::cout << *cit << std::endl;
+        ++cit;
+    }
+
+    std::cout << "std::list equivalent test:" << std::endl;
+    std::list<int> lst;
+    lst.push_back(5);
+    lst.push_back(17);
+    std::cout << lst.back() << std::endl;
+    lst.pop_back();
+    std::cout << lst.size() << std::endl;
+    lst.push_back(3);
+    lst.push_back(5);
+    lst.push_back(737);
+    lst.push_back(0);
+    std::list<int>::iterator lit = lst.begin();
+    std::list<int>::iterator lite = lst.end();
+    ++lit;
+    --lit;
+    while (lit != lite)
+    {
+        std::cout << *lit << std::endl;
+        ++lit;
+    }
+
+    std::stack<int> s(mstack);
     return 0;
 }

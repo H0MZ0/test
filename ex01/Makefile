@@ -1,16 +1,16 @@
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME = iter
-SRC = main.cpp
-HAD = iter.hpp
+NAME = Span
+SRC = main.cpp Span.cpp 
+HAD = Span.hpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HAD)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp $(HAD)
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
@@ -19,4 +19,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all 
+re: fclean all
+.PHONY: all clean fclean re
+.SECONDARY:

@@ -1,17 +1,16 @@
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-
-NAME = array
-SRC = main.cpp
-HDR = Array.hpp
+NAME = iterator
+SRC = main.cpp 
+HAD = MutantStack.hpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HAD)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp $(HDR)
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
@@ -21,3 +20,5 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+.PHONY: all clean fclean re
+.SECONDARY:
